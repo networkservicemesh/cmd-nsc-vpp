@@ -45,7 +45,6 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/networkservice/chains/client"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
-	"github.com/networkservicemesh/sdk/pkg/networkservice/core/chain"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/utils/metadata"
 	"github.com/networkservicemesh/sdk/pkg/tools/grpcutils"
 	"github.com/networkservicemesh/sdk/pkg/tools/logger"
@@ -155,8 +154,6 @@ func main() {
 		logrus.Fatalf("error getting clientCC: %+v", err)
 	}
 
-	var lastSocketID uint32
-
 	// ********************************************************************************
 	logger.Log(ctx).Infof("executing phase 5: create network service client (time since start: %s)", time.Since(starttime))
 	// ********************************************************************************
@@ -167,14 +164,12 @@ func main() {
 		nil,
 		spiffejwt.TokenGeneratorFunc(source, config.MaxTokenLifetime),
 		clientCC,
-		chain.NewNetworkServiceClient(
-			metadata.NewClient(),
-			up.NewClient(ctx, vppConn),
-			connectioncontext.NewClient(vppConn),
-			memif.NewClient(vppConn, &lastSocketID),
-			sendfd.NewClient(),
-			recvfd.NewClient(),
-		),
+		metadata.NewClient(),
+		up.NewClient(ctx, vppConn),
+		connectioncontext.NewClient(vppConn),
+		memif.NewClient(vppConn),
+		sendfd.NewClient(),
+		recvfd.NewClient(),
 	)
 
 	var connects []*networkservice.Connection
