@@ -11,8 +11,8 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/networkservicemesh/api v0.0.0-20210202152048-ec956057eb3a
-	github.com/networkservicemesh/sdk v0.0.0-20210210130149-146ee8bc456c
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20210210130541-33cf0f35f558
+	github.com/networkservicemesh/sdk v0.0.0-20210212063022-e1df7c5980a8
+	github.com/networkservicemesh/sdk-vpp v0.0.0-20210212063349-58ee0e53b7a2
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.4
 	google.golang.org/grpc v1.35.0
