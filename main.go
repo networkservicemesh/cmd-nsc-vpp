@@ -52,6 +52,7 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/tools/nsurl"
 	"github.com/networkservicemesh/sdk/pkg/tools/opentracing"
 	"github.com/networkservicemesh/sdk/pkg/tools/spiffejwt"
+	"github.com/networkservicemesh/sdk/pkg/tools/token"
 )
 
 // Config - configuration for cmd-forwarder-vpp
@@ -141,14 +142,20 @@ func main() {
 		dialCtx,
 		grpcutils.URLToTarget(&config.ConnectTo),
 		append(opentracing.WithTracingDial(),
-			grpc.WithDefaultCallOptions(grpc.WaitForReady(true)),
+			grpc.WithDefaultCallOptions(
+				grpc.WaitForReady(true),
+				grpc.PerRPCCredentials(token.NewPerRPCCredentials(spiffejwt.TokenGeneratorFunc(source, config.MaxTokenLifetime))),
+			),
 			grpc.WithTransportCredentials(
 				grpcfd.TransportCredentials(
 					credentials.NewTLS(
 						tlsconfig.MTLSClientConfig(source, source, tlsconfig.AuthorizeAny()),
 					),
 				),
-			))...,
+			),
+			grpcfd.WithChainStreamInterceptor(),
+			grpcfd.WithChainUnaryInterceptor(),
+		)...,
 	)
 	if err != nil {
 		logrus.Fatalf("error getting clientCC: %+v", err)
@@ -160,16 +167,16 @@ func main() {
 
 	c := client.NewClient(
 		ctx,
-		config.Name,
-		nil,
-		spiffejwt.TokenGeneratorFunc(source, config.MaxTokenLifetime),
 		clientCC,
-		metadata.NewClient(),
-		up.NewClient(ctx, vppConn),
-		connectioncontext.NewClient(vppConn),
-		memif.NewClient(vppConn),
-		sendfd.NewClient(),
-		recvfd.NewClient(),
+		client.WithName(config.Name),
+		client.WithAdditionalFunctionality(
+			metadata.NewClient(),
+			up.NewClient(ctx, vppConn),
+			connectioncontext.NewClient(vppConn),
+			memif.NewClient(vppConn),
+			sendfd.NewClient(),
+			recvfd.NewClient(),
+		),
 	)
 
 	var connects []*networkservice.Connection
