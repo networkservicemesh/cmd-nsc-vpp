@@ -179,16 +179,6 @@ func main() {
 		),
 	)
 
-	var connects []*networkservice.Connection
-
-	defer func() {
-		for _, conn := range connects {
-			closeCtx, cancel := context.WithTimeout(ctx, config.RequestTimeout)
-			defer cancel()
-			_, _ = c.Close(closeCtx, conn)
-		}
-	}()
-
 	// ********************************************************************************
 	log.FromContext(ctx).Infof("executing phase 6: connect to all passed services (time since start: %s)", time.Since(starttime))
 	// ********************************************************************************
@@ -206,12 +196,20 @@ func main() {
 				Labels:         u.Labels(),
 			},
 		}
+
 		requestCtx, cancel := context.WithTimeout(ctx, config.RequestTimeout)
 		defer cancel()
-		_, err = c.Request(requestCtx, request)
+
+		resp, err := c.Request(requestCtx, request)
 		if err != nil {
 			log.FromContext(ctx).Fatalf("requset has failed: %v", err.Error())
 		}
+
+		defer func() {
+			closeCtx, cancel := context.WithTimeout(ctx, config.RequestTimeout)
+			defer cancel()
+			_, _ = c.Close(closeCtx, resp)
+		}()
 	}
 
 	<-ctx.Done()
