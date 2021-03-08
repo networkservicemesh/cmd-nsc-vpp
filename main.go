@@ -46,6 +46,7 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/utils/metadata"
+	"github.com/networkservicemesh/sdk/pkg/tools/extend"
 	"github.com/networkservicemesh/sdk/pkg/tools/grpcutils"
 	"github.com/networkservicemesh/sdk/pkg/tools/log"
 	"github.com/networkservicemesh/sdk/pkg/tools/log/logruslogger"
@@ -206,14 +207,13 @@ func main() {
 		}
 
 		defer func() {
-			closeCtx, cancel := context.WithTimeout(ctx, config.RequestTimeout)
+			closeCtx, cancel := context.WithTimeout(context.Background(), config.RequestTimeout)
 			defer cancel()
-			_, _ = c.Close(closeCtx, resp)
+			_, _ = c.Close(extend.WithValuesFromContext(closeCtx, ctx), resp)
 		}()
 	}
 
 	<-ctx.Done()
-	<-vppErrCh
 }
 
 func exitOnErrCh(ctx context.Context, cancel context.CancelFunc, errCh <-chan error) {
