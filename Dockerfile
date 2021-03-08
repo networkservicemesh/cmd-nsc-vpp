@@ -28,4 +28,4 @@ CMD dlv -l :40000 --headless=true --api-version=2 test -test.v ./...
 
 FROM ghcr.io/edwarnicke/govpp/vpp:${VPP_VERSION} as runtime
 COPY --from=build /bin/cmd-nsc-vpp /bin/cmd-nsc-vpp
-CMD /bin/cmd-nsc-vpp
+ENTRYPOINT [ "/bin/cmd-nsc-vpp" ]
