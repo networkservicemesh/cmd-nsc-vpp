@@ -1,6 +1,6 @@
 module github.com/networkservicemesh/cmd-nsc-vpp
 
-go 1.15
+go 1.16
 
 require (
 	github.com/antonfisher/nested-logrus-formatter v1.3.0
@@ -13,8 +13,9 @@ require (
 	github.com/networkservicemesh/api v0.0.0-20210403165646-b0b334ca6872
 	github.com/networkservicemesh/sdk v0.0.0-20210405062928-0d2dc281b97c
 	github.com/networkservicemesh/sdk-vpp v0.0.0-20210405063250-b9cbf6b70e98
-	github.com/onsi/ginkgo v1.13.0 // indirect
+	github.com/onsi/gomega v1.10.1 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.4
+	golang.org/x/text v0.3.2 // indirect
 	google.golang.org/grpc v1.35.0
 )
