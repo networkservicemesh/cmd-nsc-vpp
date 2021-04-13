@@ -67,6 +67,7 @@ jobs:
            echo "Please use errors.Errorf (or errors.New or errors.Wrap or errors.Wrapf) as appropriate rather than fmt.Errorf"
            exit 1
           fi
+
   restrictNSMDeps:
     name: Restrict dependencies on github.com/networkservicemesh/*
     runs-on: ubuntu-latest
@@ -82,6 +83,7 @@ jobs:
               exit 1
             fi;
           done
+
   checkgomod:
     name: Check go.mod and go.sum
     runs-on: ubuntu-latest
@@ -94,6 +96,7 @@ jobs:
       - name: Check for changes
         run: |
           git diff --name-only --exit-code || ( echo "Run go mod tidy" && false )
+
   gogenerate:
     name: Check generated files
     runs-on: ubuntu-latest
@@ -106,6 +109,7 @@ jobs:
       - name: Check for changes
         run: |
           git diff --name-only --exit-code || ( echo "Rerun go generate ./... locally and resubmit" && false )
+
   excludereplace:
     name: Exclude Replace in go.mod
     runs-on: ubuntu-latest
@@ -116,6 +120,7 @@ jobs:
         run: |
           grep ^replace go.mod || exit 0
           exit 1
+
   docker:
     name: Docker Build & Test
     runs-on: ubuntu-latest
@@ -144,32 +149,3 @@ jobs:
             pr-${{ steps.findPr.outputs.pr }}
             commit-${{ github.sha }}
             latest
-  pushImage:
-    name: Push docker image
-    runs-on: ubuntu-latest
-    env:
-      DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      DOCKER_USER: ${{ secrets.DOCKER_LOGIN }}
-      ORG: networkservicemeshci
-      CGO_ENABLED: 0
-      NAME: ${{ github.event.repository.name }}
-    needs:
-      - build
-      - docker
-    if: github.actor == 'nsmbot' && github.base_ref == 'master' && github.event_name == 'pull_request' && github.repository != 'networkservicemesh/cmd-template'
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v1
-        with:
-          go-version: 1.16
-      - name: Build ${NAME}:${GITHUB_SHA::8} image
-        run: docker build . -t "${ORG}/${NAME}:${GITHUB_SHA::8}" --target runtime
-      - name: Build ${NAME}:latest image
-        run: docker build . -t "${ORG}/${NAME}" --target runtime
-      - name: Push ${NAME} images
-        run: |
-          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-          docker push "${ORG}/${NAME}:${GITHUB_SHA::8}"
-          docker image rm "${ORG}/${NAME}:${GITHUB_SHA::8}"
-          docker push "${ORG}/${NAME}"
-          docker image rm "${ORG}/${NAME}"
