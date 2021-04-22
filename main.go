@@ -23,12 +23,13 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	nested "github.com/antonfisher/nested-logrus-formatter"
 	"github.com/edwarnicke/debug"
 	"github.com/edwarnicke/grpcfd"
-	"github.com/edwarnicke/signalctx"
 	"github.com/edwarnicke/vpphelper"
 	"github.com/google/uuid"
 	"github.com/kelseyhightower/envconfig"
@@ -69,8 +70,16 @@ func main() {
 	// ********************************************************************************
 	// setup context to catch signals
 	// ********************************************************************************
-	ctx := signalctx.WithSignals(context.Background())
-	ctx, cancel := context.WithCancel(ctx)
+	ctx, cancel := signal.NotifyContext(
+		context.Background(),
+		os.Interrupt,
+		// More Linux signals here
+		syscall.SIGHUP,
+		syscall.SIGTERM,
+		syscall.SIGQUIT,
+	)
+	defer cancel()
+
 	// ********************************************************************************
 	// setup logging
 	// ********************************************************************************
