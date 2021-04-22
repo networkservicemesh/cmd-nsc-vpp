@@ -7,7 +7,6 @@ import (
 	_ "github.com/antonfisher/nested-logrus-formatter"
 	_ "github.com/edwarnicke/debug"
 	_ "github.com/edwarnicke/grpcfd"
-	_ "github.com/edwarnicke/signalctx"
 	_ "github.com/edwarnicke/vpphelper"
 	_ "github.com/google/uuid"
 	_ "github.com/kelseyhightower/envconfig"
@@ -33,5 +32,7 @@ import (
 	_ "google.golang.org/grpc/credentials"
 	_ "net/url"
 	_ "os"
+	_ "os/signal"
+	_ "syscall"
 	_ "time"
 )
