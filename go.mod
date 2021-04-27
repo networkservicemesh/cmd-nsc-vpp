@@ -10,8 +10,8 @@ require (
 	github.com/google/uuid v1.1.2
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/networkservicemesh/api v0.0.0-20210417193417-dd329f8d6b7a
-	github.com/networkservicemesh/sdk v0.0.0-20210426082457-79914fd80cf9
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20210426083915-bf96dd7ce7d0
+	github.com/networkservicemesh/sdk v0.0.0-20210427065648-d96382a0527b
+	github.com/networkservicemesh/sdk-vpp v0.0.0-20210427065952-ce5fcb02b345
 	github.com/onsi/gomega v1.10.1 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.4
