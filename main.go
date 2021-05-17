@@ -207,7 +207,7 @@ func main() {
 		}
 
 		defer func() {
-			closeCtx, cancel := context.WithTimeout(ctx, config.RequestTimeout)
+			closeCtx, cancel := context.WithTimeout(context.Background(), config.RequestTimeout)
 			defer cancel()
 			_, _ = c.Close(closeCtx, resp)
 		}()
