@@ -208,6 +208,7 @@ func main() {
 
 		defer func() {
 			closeCtx, cancel := context.WithTimeout(context.Background(), config.RequestTimeout)
+			closeCtx = log.WithFields(closeCtx, log.Fields(ctx))
 			defer cancel()
 			_, _ = c.Close(closeCtx, resp)
 		}()
