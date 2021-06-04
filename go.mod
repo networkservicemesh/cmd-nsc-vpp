@@ -11,11 +11,10 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/networkservicemesh/api v0.0.0-20210527182901-ea452d7e044c
 	github.com/networkservicemesh/sdk v0.0.0-20210604121247-b46ec6db603c
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20210604121643-30718ac598ee
+	github.com/networkservicemesh/sdk-vpp v0.0.0-20210604143038-7d5d375402cb
 	github.com/onsi/gomega v1.10.1 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.4
-	golang.org/x/text v0.3.2 // indirect
 	golang.org/x/tools v0.0.0-20200812195022-5ae4c3c160a0 // indirect
 	google.golang.org/grpc v1.35.0
 )
