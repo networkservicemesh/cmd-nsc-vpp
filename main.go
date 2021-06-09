@@ -47,7 +47,6 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/utils/metadata"
-	"github.com/networkservicemesh/sdk/pkg/tools/grpcutils"
 	"github.com/networkservicemesh/sdk/pkg/tools/log"
 	"github.com/networkservicemesh/sdk/pkg/tools/log/logruslogger"
 	"github.com/networkservicemesh/sdk/pkg/tools/nsurl"
@@ -88,14 +87,13 @@ func main() {
 	}
 	starttime := time.Now()
 	// enumerating phases
-	log.FromContext(ctx).Infof("there are 6 phases which will be executed followed by a success message:")
+	log.FromContext(ctx).Infof("there are 5 phases which will be executed followed by a success message:")
 	log.FromContext(ctx).Infof("the phases include:")
 	log.FromContext(ctx).Infof("1: get config from environment")
 	log.FromContext(ctx).Infof("2: run vpp and get a connection to it")
 	log.FromContext(ctx).Infof("3: retrieve spiffe svid")
-	log.FromContext(ctx).Infof("4: create grpc connection")
-	log.FromContext(ctx).Infof("5: create network service client")
-	log.FromContext(ctx).Infof("6: connect to all passed services")
+	log.FromContext(ctx).Infof("4: create network service client")
+	log.FromContext(ctx).Infof("5: connect to all passed services")
 	log.FromContext(ctx).Infof("a final success message with start time duration")
 	// ********************************************************************************
 	log.FromContext(ctx).Infof("executing phase 1: get config from environment (time since start: %s)", time.Since(starttime))
@@ -133,42 +131,28 @@ func main() {
 	log.FromContext(ctx).WithField("duration", time.Since(now)).Info("completed phase 3: retrieving svid")
 
 	// ********************************************************************************
-	log.FromContext(ctx).Infof("executing phase 4: create grpc connection (time since start: %s)", time.Since(starttime))
+	log.FromContext(ctx).Infof("executing phase 4: create network service client (time since start: %s)", time.Since(starttime))
 	// ********************************************************************************
 
-	dialCtx, cancel := context.WithTimeout(ctx, config.DialTimeout)
-	defer cancel()
-
-	clientCC, err := grpc.DialContext(
-		dialCtx,
-		grpcutils.URLToTarget(&config.ConnectTo),
-		append(opentracing.WithTracingDial(),
-			grpc.WithDefaultCallOptions(
-				grpc.WaitForReady(true),
-				grpc.PerRPCCredentials(token.NewPerRPCCredentials(spiffejwt.TokenGeneratorFunc(source, config.MaxTokenLifetime))),
-			),
-			grpc.WithTransportCredentials(
-				grpcfd.TransportCredentials(
-					credentials.NewTLS(
-						tlsconfig.MTLSClientConfig(source, source, tlsconfig.AuthorizeAny()),
-					),
+	dialOptions := append(opentracing.WithTracingDial(),
+		grpc.WithDefaultCallOptions(
+			grpc.WaitForReady(true),
+			grpc.PerRPCCredentials(token.NewPerRPCCredentials(spiffejwt.TokenGeneratorFunc(source, config.MaxTokenLifetime))),
+		),
+		grpc.WithTransportCredentials(
+			grpcfd.TransportCredentials(
+				credentials.NewTLS(
+					tlsconfig.MTLSClientConfig(source, source, tlsconfig.AuthorizeAny()),
 				),
 			),
-			grpcfd.WithChainStreamInterceptor(),
-			grpcfd.WithChainUnaryInterceptor(),
-		)...,
+		),
+		grpcfd.WithChainStreamInterceptor(),
+		grpcfd.WithChainUnaryInterceptor(),
 	)
-	if err != nil {
-		logrus.Fatalf("error getting clientCC: %+v", err)
-	}
-
-	// ********************************************************************************
-	log.FromContext(ctx).Infof("executing phase 5: create network service client (time since start: %s)", time.Since(starttime))
-	// ********************************************************************************
 
 	c := client.NewClient(
 		ctx,
-		clientCC,
+		&config.ConnectTo,
 		client.WithName(config.Name),
 		client.WithAdditionalFunctionality(
 			metadata.NewClient(),
@@ -178,10 +162,12 @@ func main() {
 			sendfd.NewClient(),
 			recvfd.NewClient(),
 		),
+		client.WithDialTimeout(config.DialTimeout),
+		client.WithDialOptions(dialOptions...),
 	)
 
 	// ********************************************************************************
-	log.FromContext(ctx).Infof("executing phase 6: connect to all passed services (time since start: %s)", time.Since(starttime))
+	log.FromContext(ctx).Infof("executing phase 5: connect to all passed services (time since start: %s)", time.Since(starttime))
 	// ********************************************************************************
 
 	for i := 0; i < len(config.NetworkServices); i++ {
@@ -203,7 +189,7 @@ func main() {
 
 		resp, err := c.Request(requestCtx, request)
 		if err != nil {
-			log.FromContext(ctx).Fatalf("requset has failed: %v", err.Error())
+			log.FromContext(ctx).Fatalf("request has failed: %v", err.Error())
 		}
 
 		defer func() {

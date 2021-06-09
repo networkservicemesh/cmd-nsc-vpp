@@ -9,8 +9,8 @@ require (
 	github.com/edwarnicke/vpphelper v0.0.0-20210225052320-b4f1f1aff45d
 	github.com/google/uuid v1.1.2
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/networkservicemesh/api v0.0.0-20210607090113-57f36f2c295b
-	github.com/networkservicemesh/sdk v0.0.0-20210608053425-06aafeb2606f
+	github.com/networkservicemesh/api v0.0.0-20210609080649-aa4a0cc6c9ea
+	github.com/networkservicemesh/sdk v0.0.0-20210609081227-4199f461084e
 	github.com/networkservicemesh/sdk-vpp v0.0.0-20210608053942-fa13426047ac
 	github.com/onsi/gomega v1.10.1 // indirect
 	github.com/sirupsen/logrus v1.7.0

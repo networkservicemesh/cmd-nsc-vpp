@@ -18,7 +18,6 @@ import (
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/utils/metadata"
-	_ "github.com/networkservicemesh/sdk/pkg/tools/grpcutils"
 	_ "github.com/networkservicemesh/sdk/pkg/tools/log"
 	_ "github.com/networkservicemesh/sdk/pkg/tools/log/logruslogger"
 	_ "github.com/networkservicemesh/sdk/pkg/tools/nsurl"
