@@ -20,7 +20,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"net/url"
 	"os"
 	"os/signal"
@@ -31,7 +30,6 @@ import (
 	"github.com/edwarnicke/debug"
 	"github.com/edwarnicke/grpcfd"
 	"github.com/edwarnicke/vpphelper"
-	"github.com/google/uuid"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/sirupsen/logrus"
 	"github.com/spiffe/go-spiffe/v2/spiffetls/tlsconfig"
@@ -193,7 +191,6 @@ func main() {
 		}
 		request := &networkservice.NetworkServiceRequest{
 			Connection: &networkservice.Connection{
-				Id:             fmt.Sprintf("%v-%v", config.Name, uuid.New().String()),
 				NetworkService: u.NetworkService(),
 				Labels:         u.Labels(),
 			},
