@@ -10,7 +10,7 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/networkservicemesh/api v1.0.1-0.20210811070028-10403c0f20c8
 	github.com/networkservicemesh/sdk v0.5.1-0.20210818141440-51c735cb495e
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20210818142115-62014aaa4ad3
+	github.com/networkservicemesh/sdk-vpp v0.0.0-20210819122339-c4597c6b53b7
 	github.com/onsi/gomega v1.10.1 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.4
