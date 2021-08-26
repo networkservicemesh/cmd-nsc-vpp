@@ -53,7 +53,7 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/tools/token"
 )
 
-// Config - configuration for cmd-forwarder-vpp
+// Config - configuration for cmd-nsc-vpp
 type Config struct {
 	Name             string        `default:"cmd-nsc-vpp" desc:"Name of Endpoint"`
 	DialTimeout      time.Duration `default:"5s" desc:"timeout to dial NSMgr" split_words:"true"`
@@ -61,6 +61,7 @@ type Config struct {
 	ConnectTo        url.URL       `default:"unix:///var/lib/networkservicemesh/nsm.io.sock" desc:"url to connect to" split_words:"true"`
 	MaxTokenLifetime time.Duration `default:"10m" desc:"maximum lifetime of tokens" split_words:"true"`
 	NetworkServices  []url.URL     `default:"" desc:"A list of Network Service Requests" split_words:"true"`
+	VppAPISocket     string        `default:"" desc:"filename of socket to connect to existing VPP instance. If empty a VPP instance is run in client" split_words:"true"`
 }
 
 func main() {
@@ -115,8 +116,17 @@ func main() {
 	// ********************************************************************************
 	now = time.Now()
 
-	vppConn, vppErrCh := vpphelper.StartAndDialContext(ctx)
-	exitOnErrCh(ctx, cancel, vppErrCh)
+	var vppConn vpphelper.Connection
+	var vppErrCh <-chan error
+	if config.VppAPISocket != "" { // If we have a VppAPISocket, use that
+		vppConn = vpphelper.DialContext(ctx, config.VppAPISocket)
+		errCh := make(chan error)
+		close(errCh)
+		vppErrCh = errCh
+	} else { // If we don't have a VPPAPISocket, start VPP and use that
+		vppConn, vppErrCh = vpphelper.StartAndDialContext(ctx)
+		exitOnErrCh(ctx, cancel, vppErrCh)
+	}
 
 	defer func() {
 		cancel()

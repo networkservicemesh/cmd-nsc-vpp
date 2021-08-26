@@ -6,7 +6,7 @@ require (
 	github.com/antonfisher/nested-logrus-formatter v1.3.0
 	github.com/edwarnicke/debug v1.0.0
 	github.com/edwarnicke/grpcfd v0.1.0
-	github.com/edwarnicke/vpphelper v0.0.0-20210225052320-b4f1f1aff45d
+	github.com/edwarnicke/vpphelper v0.0.0-20210512223648-f914b171f679
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/networkservicemesh/api v1.0.1-0.20210811070028-10403c0f20c8
 	github.com/networkservicemesh/sdk v0.5.1-0.20210823074050-b1370083e4e1
