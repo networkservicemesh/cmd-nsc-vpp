@@ -61,6 +61,7 @@ type Config struct {
 	ConnectTo        url.URL       `default:"unix:///var/lib/networkservicemesh/nsm.io.sock" desc:"url to connect to" split_words:"true"`
 	MaxTokenLifetime time.Duration `default:"10m" desc:"maximum lifetime of tokens" split_words:"true"`
 	NetworkServices  []url.URL     `default:"" desc:"A list of Network Service Requests" split_words:"true"`
+	LogLevel         string        `default:"INFO" desc:"Log level" split_words:"true"`
 }
 
 func main() {
@@ -107,6 +108,12 @@ func main() {
 		logrus.Fatalf("error processing config from env: %+v", err)
 	}
 	log.FromContext(ctx).Infof("Config: %#v", config)
+
+	l, err := logrus.ParseLevel(config.LogLevel)
+	if err != nil {
+		logrus.Fatalf("invalid log level %s", config.LogLevel)
+	}
+	logrus.SetLevel(l)
 
 	log.FromContext(ctx).WithField("duration", time.Since(now)).Infof("completed phase 1: get config from environment")
 
