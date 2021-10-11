@@ -108,7 +108,13 @@ func main() {
 		logrus.Fatalf("error processing config from env: %+v", err)
 	}
 	log.FromContext(ctx).Infof("Config: %#v", config)
-	setLogLevel(config.LogLevel)
+
+	l, err := logrus.ParseLevel(config.LogLevel)
+	if err != nil {
+		logrus.Fatalf("invalid log level %s", config.LogLevel)
+	}
+	logrus.SetLevel(l)
+
 	log.FromContext(ctx).WithField("duration", time.Since(now)).Infof("completed phase 1: get config from environment")
 
 	// ********************************************************************************
@@ -239,12 +245,4 @@ func notifyContext(ctx context.Context) (context.Context, context.CancelFunc) {
 		syscall.SIGTERM,
 		syscall.SIGQUIT,
 	)
-}
-
-func setLogLevel(level string) {
-	l, err := logrus.ParseLevel(level)
-	if err != nil {
-		logrus.Fatalf("invalid log level %s", level)
-	}
-	logrus.SetLevel(l)
 }
