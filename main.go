@@ -170,7 +170,7 @@ func main() {
 
 	c := client.NewClient(
 		ctx,
-		&config.ConnectTo,
+		client.WithClientURL(&config.ConnectTo),
 		client.WithName(config.Name),
 		client.WithAdditionalFunctionality(
 			metadata.NewClient(),
