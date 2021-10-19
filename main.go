@@ -58,6 +58,8 @@ type Config struct {
 	Name             string        `default:"cmd-nsc-vpp" desc:"Name of Endpoint"`
 	DialTimeout      time.Duration `default:"5s" desc:"timeout to dial NSMgr" split_words:"true"`
 	RequestTimeout   time.Duration `default:"15s" desc:"timeout to request NSE" split_words:"true"`
+	RetryTimeout     time.Duration `default:"1m" desc:"retry timeout" split_words:"true"`
+	RetryInterval    time.Duration `default:"100ms" desc:"retry interval" split_words:"true"`
 	ConnectTo        url.URL       `default:"unix:///var/lib/networkservicemesh/nsm.io.sock" desc:"url to connect to" split_words:"true"`
 	MaxTokenLifetime time.Duration `default:"10m" desc:"maximum lifetime of tokens" split_words:"true"`
 	NetworkServices  []url.URL     `default:"" desc:"A list of Network Service Requests" split_words:"true"`
@@ -154,7 +156,6 @@ func main() {
 	// ********************************************************************************
 	dialOptions := append(opentracing.WithTracingDial(),
 		grpc.WithDefaultCallOptions(
-			grpc.WaitForReady(true),
 			grpc.PerRPCCredentials(token.NewPerRPCCredentials(spiffejwt.TokenGeneratorFunc(source, config.MaxTokenLifetime))),
 		),
 		grpc.WithTransportCredentials(
@@ -203,19 +204,36 @@ func main() {
 			},
 		}
 
-		requestCtx, cancelRequest := context.WithTimeout(signalCtx, config.RequestTimeout)
-		defer cancelRequest()
-
-		resp, err := c.Request(requestCtx, request)
-		if err != nil {
-			log.FromContext(ctx).Fatalf("request has failed: %v", err.Error())
+		retryCtx, retryCancel := context.WithCancel(ctx)
+		defer retryCancel()
+		if config.RequestTimeout != 0 {
+			retryCtx, retryCancel = context.WithTimeout(ctx, config.RetryTimeout)
+			defer retryCancel()
 		}
 
-		defer func() {
-			closeCtx, cancelClose := context.WithTimeout(ctx, config.RequestTimeout)
-			defer cancelClose()
-			_, _ = c.Close(closeCtx, resp)
-		}()
+		for {
+			requestCtx, cancelRequest := context.WithTimeout(signalCtx, config.RequestTimeout)
+			defer cancelRequest()
+
+			resp, err := c.Request(requestCtx, request)
+			if err != nil {
+				log.FromContext(ctx).Errorf("failed connect to NSMgr: %v", err.Error())
+				select {
+				case <-retryCtx.Done():
+					log.FromContext(ctx).Fatalf("failed to connect to %s after %d retries")
+				default:
+					time.Sleep(config.RetryInterval)
+				}
+				continue
+			}
+
+			defer func() {
+				closeCtx, cancelClose := context.WithTimeout(ctx, config.RequestTimeout)
+				defer cancelClose()
+				_, _ = c.Close(closeCtx, resp)
+			}()
+			break
+		}
 	}
 
 	<-signalCtx.Done()
