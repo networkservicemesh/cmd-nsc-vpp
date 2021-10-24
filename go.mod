@@ -11,7 +11,6 @@ require (
 	github.com/networkservicemesh/api v1.0.1-0.20210907194827-9a36433d7d6e
 	github.com/networkservicemesh/sdk v0.5.1-0.20211020144353-a94971df2a4c
 	github.com/networkservicemesh/sdk-vpp v0.0.0-20211022090340-2d2aa47a8915
-	github.com/onsi/gomega v1.10.1 // indirect
 	github.com/sirupsen/logrus v1.7.0
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.4
 	google.golang.org/grpc v1.35.0
