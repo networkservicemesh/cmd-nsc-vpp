@@ -44,6 +44,7 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/networkservice/chains/client"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
+	"github.com/networkservicemesh/sdk/pkg/networkservice/common/retry"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/utils/metadata"
 	"github.com/networkservicemesh/sdk/pkg/tools/log"
 	"github.com/networkservicemesh/sdk/pkg/tools/log/logruslogger"
@@ -184,6 +185,8 @@ func main() {
 		client.WithDialOptions(dialOptions...),
 	)
 
+	c = retry.NewClient(c, retry.WithTryTimeout(config.RequestTimeout))
+
 	// ********************************************************************************
 	log.FromContext(ctx).Infof("executing phase 5: connect to all passed services (time since start: %s)", time.Since(starttime))
 	// ********************************************************************************
@@ -203,10 +206,7 @@ func main() {
 			},
 		}
 
-		requestCtx, cancelRequest := context.WithTimeout(signalCtx, config.RequestTimeout)
-		defer cancelRequest()
-
-		resp, err := c.Request(requestCtx, request)
+		resp, err := c.Request(ctx, request)
 		if err != nil {
 			log.FromContext(ctx).Fatalf("request has failed: %v", err.Error())
 		}
