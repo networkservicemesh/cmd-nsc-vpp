@@ -42,6 +42,7 @@ import (
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/mechanisms/memif"
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/up"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/chains/client"
+	"github.com/networkservicemesh/sdk/pkg/networkservice/common/heal"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/retry"
@@ -173,6 +174,7 @@ func main() {
 		ctx,
 		client.WithClientURL(&config.ConnectTo),
 		client.WithName(config.Name),
+		client.WithHealClient(heal.NewClient(ctx)),
 		client.WithAdditionalFunctionality(
 			metadata.NewClient(),
 			up.NewClient(ctx, vppConn),
