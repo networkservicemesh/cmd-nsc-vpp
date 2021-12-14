@@ -42,6 +42,7 @@ import (
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/mechanisms/memif"
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/up"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/chains/client"
+	"github.com/networkservicemesh/sdk/pkg/networkservice/common/excludedprefixes"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/heal"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
@@ -181,6 +182,7 @@ func main() {
 			memif.NewClient(vppConn),
 			sendfd.NewClient(),
 			recvfd.NewClient(),
+			excludedprefixes.NewClient(),
 		),
 		client.WithDialTimeout(config.DialTimeout),
 		client.WithDialOptions(dialOptions...),
