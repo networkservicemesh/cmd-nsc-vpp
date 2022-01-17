@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Doc.ai its affiliates.
+// Copyright (c) 2021-2022 Doc.ai its affiliates.
 //
 // SPDX-License-Identifier: Apache-2.0
 //
@@ -14,6 +14,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build linux
 // +build linux
 
 package main
@@ -51,20 +52,22 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/tools/log"
 	"github.com/networkservicemesh/sdk/pkg/tools/log/logruslogger"
 	"github.com/networkservicemesh/sdk/pkg/tools/nsurl"
-	"github.com/networkservicemesh/sdk/pkg/tools/opentracing"
+	"github.com/networkservicemesh/sdk/pkg/tools/opentelemetry"
 	"github.com/networkservicemesh/sdk/pkg/tools/spiffejwt"
 	"github.com/networkservicemesh/sdk/pkg/tools/token"
+	"github.com/networkservicemesh/sdk/pkg/tools/tracing"
 )
 
 // Config - configuration for cmd-forwarder-vpp
 type Config struct {
-	Name             string        `default:"cmd-nsc-vpp" desc:"Name of Endpoint"`
-	DialTimeout      time.Duration `default:"5s" desc:"timeout to dial NSMgr" split_words:"true"`
-	RequestTimeout   time.Duration `default:"15s" desc:"timeout to request NSE" split_words:"true"`
-	ConnectTo        url.URL       `default:"unix:///var/lib/networkservicemesh/nsm.io.sock" desc:"url to connect to" split_words:"true"`
-	MaxTokenLifetime time.Duration `default:"10m" desc:"maximum lifetime of tokens" split_words:"true"`
-	NetworkServices  []url.URL     `default:"" desc:"A list of Network Service Requests" split_words:"true"`
-	LogLevel         string        `default:"INFO" desc:"Log level" split_words:"true"`
+	Name                  string        `default:"cmd-nsc-vpp" desc:"Name of Endpoint"`
+	DialTimeout           time.Duration `default:"5s" desc:"timeout to dial NSMgr" split_words:"true"`
+	RequestTimeout        time.Duration `default:"15s" desc:"timeout to request NSE" split_words:"true"`
+	ConnectTo             url.URL       `default:"unix:///var/lib/networkservicemesh/nsm.io.sock" desc:"url to connect to" split_words:"true"`
+	MaxTokenLifetime      time.Duration `default:"10m" desc:"maximum lifetime of tokens" split_words:"true"`
+	NetworkServices       []url.URL     `default:"" desc:"A list of Network Service Requests" split_words:"true"`
+	LogLevel              string        `default:"INFO" desc:"Log level" split_words:"true"`
+	OpenTelemetryEndpoint string        `default:"otel-collector.observability.svc.cluster.local:4317" desc:"OpenTelemetry Collector Endpoint"`
 }
 
 func main() {
@@ -120,6 +123,21 @@ func main() {
 	log.FromContext(ctx).WithField("duration", time.Since(now)).Infof("completed phase 1: get config from environment")
 
 	// ********************************************************************************
+	// Configure Open Telemetry
+	// ********************************************************************************
+	if opentelemetry.IsEnabled() {
+		collectorAddress := config.OpenTelemetryEndpoint
+		spanExporter := opentelemetry.InitSpanExporter(ctx, collectorAddress)
+		metricExporter := opentelemetry.InitMetricExporter(ctx, collectorAddress)
+		o := opentelemetry.Init(ctx, spanExporter, metricExporter, config.Name)
+		defer func() {
+			if err = o.Close(); err != nil {
+				log.FromContext(ctx).Error(err.Error())
+			}
+		}()
+	}
+
+	// ********************************************************************************
 	log.FromContext(ctx).Infof("executing phase 2: run vpp and get a connection to it (time since start: %s)", time.Since(starttime))
 	// ********************************************************************************
 	now = time.Now()
@@ -154,7 +172,7 @@ func main() {
 	// ********************************************************************************
 	log.FromContext(ctx).Infof("executing phase 4: create network service client (time since start: %s)", time.Since(starttime))
 	// ********************************************************************************
-	dialOptions := append(opentracing.WithTracingDial(),
+	dialOptions := append(tracing.WithTracingDial(),
 		grpc.WithDefaultCallOptions(
 			grpc.WaitForReady(true),
 			grpc.PerRPCCredentials(token.NewPerRPCCredentials(spiffejwt.TokenGeneratorFunc(source, config.MaxTokenLifetime))),
