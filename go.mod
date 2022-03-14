@@ -15,3 +15,5 @@ require (
 	github.com/spiffe/go-spiffe/v2 v2.0.0-beta.4
 	google.golang.org/grpc v1.42.0
 )
+
+replace github.com/networkservicemesh/sdk => github.com/NikitaSkrynnik/sdk v0.5.1-0.20220311122230-272638498b6c
