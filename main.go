@@ -67,7 +67,7 @@ type Config struct {
 	ConnectTo             url.URL                 `default:"unix:///var/lib/networkservicemesh/nsm.io.sock" desc:"url to connect to" split_words:"true"`
 	MaxTokenLifetime      time.Duration           `default:"10m" desc:"maximum lifetime of tokens" split_words:"true"`
 	NetworkServices       []url.URL               `default:"" desc:"A list of Network Service Requests" split_words:"true"`
-	AwarenessGroups       awarenessgroups.Decoder `defailt:"" desc:"Awareness groups for mutually awared NSEs" split_words:"true"`
+	AwarenessGroups       awarenessgroups.Decoder `defailt:"" desc:"Awareness groups for mutually aware NSEs" split_words:"true"`
 	LogLevel              string                  `default:"INFO" desc:"Log level" split_words:"true"`
 	OpenTelemetryEndpoint string                  `default:"otel-collector.observability.svc.cluster.local:4317" desc:"OpenTelemetry Collector Endpoint"`
 }

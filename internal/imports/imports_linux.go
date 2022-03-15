@@ -19,6 +19,7 @@ import (
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/retry"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/utils/metadata"
+	_ "github.com/networkservicemesh/sdk/pkg/tools/awarenessgroups"
 	_ "github.com/networkservicemesh/sdk/pkg/tools/log"
 	_ "github.com/networkservicemesh/sdk/pkg/tools/log/logruslogger"
 	_ "github.com/networkservicemesh/sdk/pkg/tools/nsurl"
