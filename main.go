@@ -286,8 +286,6 @@ func main() {
 			}
 		}
 
-		log.FromContext(ctx).Infof("MY_INFO Conn: %v", request.Connection)
-
 		resp, err := nsmClient.Request(ctx, request)
 		if err != nil {
 			log.FromContext(ctx).Fatalf("request has failed: %v", err.Error())
