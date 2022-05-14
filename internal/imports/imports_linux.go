@@ -14,6 +14,7 @@ import (
 	_ "github.com/networkservicemesh/sdk-vpp/pkg/networkservice/mechanisms/memif"
 	_ "github.com/networkservicemesh/sdk-vpp/pkg/networkservice/up"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/chains/client"
+	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/clientinfo"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/excludedprefixes"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/heal"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
