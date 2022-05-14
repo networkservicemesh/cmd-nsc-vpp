@@ -44,6 +44,7 @@ import (
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/mechanisms/memif"
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/up"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/chains/client"
+	"github.com/networkservicemesh/sdk/pkg/networkservice/common/clientinfo"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/excludedprefixes"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/heal"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
@@ -198,6 +199,7 @@ func main() {
 		client.WithName(config.Name),
 		client.WithHealClient(heal.NewClient(ctx)),
 		client.WithAdditionalFunctionality(
+			clientinfo.NewClient(),
 			metadata.NewClient(),
 			up.NewClient(ctx, vppConn),
 			connectioncontext.NewClient(vppConn),
