@@ -21,6 +21,7 @@ package main
 
 import (
 	"context"
+	"crypto/tls"
 	"fmt"
 	"net/url"
 	"os"
@@ -174,6 +175,9 @@ func main() {
 
 	log.FromContext(ctx).WithField("duration", time.Since(now)).Info("completed phase 3: retrieving svid")
 
+	tlsClientConfig := tlsconfig.MTLSClientConfig(source, source, tlsconfig.AuthorizeAny())
+	tlsClientConfig.MinVersion = tls.VersionTLS12
+
 	// ********************************************************************************
 	log.FromContext(ctx).Infof("executing phase 4: create network service client (time since start: %s)", time.Since(starttime))
 	// ********************************************************************************
@@ -185,7 +189,7 @@ func main() {
 		grpc.WithTransportCredentials(
 			grpcfd.TransportCredentials(
 				credentials.NewTLS(
-					tlsconfig.MTLSClientConfig(source, source, tlsconfig.AuthorizeAny()),
+					tlsClientConfig,
 				),
 			),
 		),
