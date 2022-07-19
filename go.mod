@@ -9,8 +9,8 @@ require (
 	github.com/edwarnicke/vpphelper v0.0.0-20210225052320-b4f1f1aff45d
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/networkservicemesh/api v1.4.1-0.20220711153918-a59689088578
-	github.com/networkservicemesh/sdk v0.5.1-0.20220718011638-44ffc6ae87e7
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20220718012445-5b579f1010ac
+	github.com/networkservicemesh/sdk v0.5.1-0.20220718171414-dc978c4c85c0
+	github.com/networkservicemesh/sdk-vpp v0.0.0-20220719141214-54ad521a4694
 	github.com/sirupsen/logrus v1.8.1
 	github.com/spiffe/go-spiffe/v2 v2.0.0
 	google.golang.org/grpc v1.42.0
@@ -35,7 +35,7 @@ require (
 	github.com/hashicorp/errwrap v1.0.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/lunixbochs/struc v0.0.0-20200521075829-a4cb8d33dbbe // indirect
-	github.com/networkservicemesh/sdk-kernel v0.0.0-20220718011944-ae3739e17d28 // indirect
+	github.com/networkservicemesh/sdk-kernel v0.0.0-20220719140715-5672a60b9aa3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/vishvananda/netns v0.0.0-20211101163701-50045581ed74 // indirect
 	github.com/zeebo/errs v1.2.2 // indirect
