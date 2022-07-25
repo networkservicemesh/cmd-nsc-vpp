@@ -51,7 +51,7 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/retry"
-	"github.com/networkservicemesh/sdk/pkg/networkservice/utils/metadata"
+	"github.com/networkservicemesh/sdk/pkg/networkservice/common/upstreamrefresh"
 	"github.com/networkservicemesh/sdk/pkg/tools/awarenessgroups"
 	"github.com/networkservicemesh/sdk/pkg/tools/grpcutils"
 	"github.com/networkservicemesh/sdk/pkg/tools/log"
@@ -204,7 +204,7 @@ func main() {
 		client.WithHealClient(heal.NewClient(ctx)),
 		client.WithAdditionalFunctionality(
 			clientinfo.NewClient(),
-			metadata.NewClient(),
+			upstreamrefresh.NewClient(ctx),
 			up.NewClient(ctx, vppConn),
 			connectioncontext.NewClient(vppConn),
 			memif.NewClient(vppConn),
