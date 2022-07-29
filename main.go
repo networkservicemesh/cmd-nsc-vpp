@@ -246,7 +246,7 @@ func main() {
 		u := nsurl.NSURL(config.NetworkServices[i])
 
 		id := fmt.Sprintf("%s-%d", config.Name, i)
-
+		var monitoredConnections map[string]*networkservice.Connection
 		monitorCtx, cancelMonitor := context.WithTimeout(signalCtx, config.RequestTimeout)
 		defer cancelMonitor()
 
@@ -258,12 +258,14 @@ func main() {
 			},
 		})
 		if err != nil {
-			log.FromContext(ctx).Fatal(err.Error())
+			log.FromContext(ctx).Fatalf("error from monitorConnectionClient", err.Error())
 		}
 
 		event, err := stream.Recv()
 		if err != nil {
-			log.FromContext(ctx).Fatal(err.Error())
+			log.FromContext(ctx).Errorf("error from monitorConnection stream", err.Error())
+		} else {
+			monitoredConnections = event.Connections
 		}
 		cancelMonitor()
 
@@ -282,7 +284,7 @@ func main() {
 			},
 		}
 
-		for _, conn := range event.Connections {
+		for _, conn := range monitoredConnections {
 			path := conn.GetPath()
 			if path.Index == 1 && path.PathSegments[0].Id == id && conn.Mechanism.Type == u.Mechanism().Type {
 				request.Connection = conn
