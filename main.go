@@ -207,7 +207,7 @@ func main() {
 			upstreamrefresh.NewClient(ctx),
 			up.NewClient(ctx, vppConn),
 			connectioncontext.NewClient(vppConn),
-			memif.NewClient(vppConn),
+			memif.NewClient(ctx, vppConn),
 			sendfd.NewClient(),
 			recvfd.NewClient(),
 			excludedprefixes.NewClient(excludedprefixes.WithAwarenessGroups(config.AwarenessGroups)),
