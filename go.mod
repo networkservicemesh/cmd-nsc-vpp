@@ -10,7 +10,7 @@ require (
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/networkservicemesh/api v1.7.2-0.20230123083145-4a6c3ec589e1
 	github.com/networkservicemesh/sdk v0.5.1-0.20230127103858-f45a84eaed48
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20230127105639-2c513db6cc34
+	github.com/networkservicemesh/sdk-vpp v0.0.0-20230201092206-c24a3cd9d3e0
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spiffe/go-spiffe/v2 v2.0.0
 	google.golang.org/grpc v1.49.0
@@ -20,7 +20,7 @@ require (
 	git.fd.io/govpp.git v0.3.6-0.20210927044411-385ccc0d8ba9 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/edwarnicke/exechelper v1.0.2 // indirect
-	github.com/edwarnicke/govpp v0.0.0-20221205183833-306afd06cce5 // indirect
+	github.com/edwarnicke/govpp v0.0.0-20230130211138-14ef5d20b1d0 // indirect
 	github.com/edwarnicke/log v1.0.0 // indirect
 	github.com/edwarnicke/serialize v1.0.7 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
