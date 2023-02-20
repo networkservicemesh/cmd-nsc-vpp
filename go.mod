@@ -9,8 +9,8 @@ require (
 	github.com/edwarnicke/vpphelper v0.0.0-20210225052320-b4f1f1aff45d
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/networkservicemesh/api v1.7.2-0.20230123083145-4a6c3ec589e1
-	github.com/networkservicemesh/sdk v0.5.1-0.20230213134519-3aa9aa0d5e1b
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20230213142924-f83ab06a3e97
+	github.com/networkservicemesh/sdk v0.5.1-0.20230217110131-ff8f08b1d404
+	github.com/networkservicemesh/sdk-vpp v0.0.0-20230220095933-cfada7063631
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spiffe/go-spiffe/v2 v2.0.0
 	google.golang.org/grpc v1.49.0
@@ -20,6 +20,7 @@ require (
 	git.fd.io/govpp.git v0.3.6-0.20210927044411-385ccc0d8ba9 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/edwarnicke/exechelper v1.0.2 // indirect
+	github.com/edwarnicke/genericsync v0.0.0-20220910010113-61a344f9bc29 // indirect
 	github.com/edwarnicke/govpp v0.0.0-20230130211138-14ef5d20b1d0 // indirect
 	github.com/edwarnicke/log v1.0.0 // indirect
 	github.com/edwarnicke/serialize v1.0.7 // indirect
@@ -35,7 +36,7 @@ require (
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/lunixbochs/struc v0.0.0-20200521075829-a4cb8d33dbbe // indirect
-	github.com/networkservicemesh/sdk-kernel v0.0.0-20230213141018-c280bc6ee279 // indirect
+	github.com/networkservicemesh/sdk-kernel v0.0.0-20230220094641-02169645d09e // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/vishvananda/netns v0.0.0-20211101163701-50045581ed74 // indirect
 	github.com/zeebo/errs v1.2.2 // indirect
