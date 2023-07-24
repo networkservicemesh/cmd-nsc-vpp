@@ -35,12 +35,13 @@ import (
 	"github.com/edwarnicke/debug"
 	"github.com/edwarnicke/grpcfd"
 	"github.com/kelseyhightower/envconfig"
-	"github.com/networkservicemesh/vpphelper"
 	"github.com/sirupsen/logrus"
 	"github.com/spiffe/go-spiffe/v2/spiffetls/tlsconfig"
 	"github.com/spiffe/go-spiffe/v2/workloadapi"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+
+	"github.com/networkservicemesh/vpphelper"
 
 	"github.com/networkservicemesh/api/pkg/api/networkservice"
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/connectioncontext"
