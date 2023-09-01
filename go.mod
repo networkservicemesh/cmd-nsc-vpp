@@ -10,8 +10,8 @@ require (
 	github.com/networkservicemesh/api v1.10.1-0.20230822145124-c4a3ece88804
 	github.com/networkservicemesh/sdk v0.5.1-0.20230828163119-f96fdf637a63
 	github.com/networkservicemesh/sdk-vpp v0.0.0-20230829144755-51305e3ca61e
-	github.com/networkservicemesh/vpphelper v0.0.0-20230721124411-38a0b7426972
-	github.com/sirupsen/logrus v1.9.0
+	github.com/networkservicemesh/vpphelper v0.0.0-20230901145133-a14aecebd1cb
+	github.com/sirupsen/logrus v1.9.3
 	github.com/spiffe/go-spiffe/v2 v2.0.0
 	google.golang.org/grpc v1.55.0
 )
@@ -19,11 +19,11 @@ require (
 require (
 	git.fd.io/govpp.git v0.3.6-0.20210927044411-385ccc0d8ba9 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
-	github.com/edwarnicke/exechelper v1.0.2 // indirect
+	github.com/edwarnicke/exechelper v1.0.3 // indirect
 	github.com/edwarnicke/genericsync v0.0.0-20220910010113-61a344f9bc29 // indirect
 	github.com/edwarnicke/log v1.0.0 // indirect
 	github.com/edwarnicke/serialize v1.0.7 // indirect
-	github.com/fsnotify/fsnotify v1.5.4 // indirect
+	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -34,12 +34,13 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.11.3 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	github.com/lunixbochs/struc v0.0.0-20200521075829-a4cb8d33dbbe // indirect
+	github.com/lunixbochs/struc v0.0.0-20200707160740-784aaebc1d40 // indirect
 	github.com/networkservicemesh/govpp v0.0.0-20230630105900-092690d52a97 // indirect
 	github.com/networkservicemesh/sdk-kernel v0.0.0-20230829144358-77e8a631e818 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/vishvananda/netns v0.0.0-20211101163701-50045581ed74 // indirect
+	github.com/vishvananda/netns v0.0.4 // indirect
 	github.com/zeebo/errs v1.2.2 // indirect
+	go.fd.io/govpp v0.8.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.42.0 // indirect
 	go.opentelemetry.io/otel v1.16.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/internal/retry v1.16.0 // indirect
@@ -55,7 +56,7 @@ require (
 	go.uber.org/atomic v1.7.0 // indirect
 	golang.org/x/crypto v0.10.0 // indirect
 	golang.org/x/net v0.11.0 // indirect
-	golang.org/x/sys v0.9.0 // indirect
+	golang.org/x/sys v0.11.0 // indirect
 	golang.org/x/text v0.10.0 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20200609130330-bd2cb7843e1b // indirect
 	google.golang.org/genproto v0.0.0-20230306155012-7f2fa6fef1f4 // indirect
