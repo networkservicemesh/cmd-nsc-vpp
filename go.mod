@@ -8,8 +8,8 @@ require (
 	github.com/edwarnicke/grpcfd v1.1.2
 	github.com/kelseyhightower/envconfig v1.4.0
 	github.com/networkservicemesh/api v1.10.1-0.20230822145124-c4a3ece88804
-	github.com/networkservicemesh/sdk v0.5.1-0.20230915092224-d68a6f4ada08
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20230918051204-11a7f0417055
+	github.com/networkservicemesh/sdk v0.5.1-0.20230919032539-bec8a85cfbdc
+	github.com/networkservicemesh/sdk-vpp v0.0.0-20230919033221-4a0043b96be7
 	github.com/networkservicemesh/vpphelper v0.0.0-20230901145133-a14aecebd1cb
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spiffe/go-spiffe/v2 v2.0.0
@@ -35,7 +35,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/lunixbochs/struc v0.0.0-20200521075829-a4cb8d33dbbe // indirect
 	github.com/networkservicemesh/govpp v0.0.0-20230907103511-c36dcfff5b20 // indirect
-	github.com/networkservicemesh/sdk-kernel v0.0.0-20230918050655-3bfb4799332a // indirect
+	github.com/networkservicemesh/sdk-kernel v0.0.0-20230919032839-76893a26b5c1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/vishvananda/netns v0.0.0-20211101163701-50045581ed74 // indirect
 	github.com/zeebo/errs v1.2.2 // indirect
