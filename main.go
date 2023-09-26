@@ -47,6 +47,7 @@ import (
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/connectioncontext"
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/mechanisms/memif"
 	"github.com/networkservicemesh/sdk-vpp/pkg/networkservice/up"
+	vppheal "github.com/networkservicemesh/sdk-vpp/pkg/tools/heal"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/chains/client"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/clientinfo"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/excludedprefixes"
@@ -78,6 +79,10 @@ type Config struct {
 	LogLevel              string                  `default:"INFO" desc:"Log level" split_words:"true"`
 	OpenTelemetryEndpoint string                  `default:"otel-collector.observability.svc.cluster.local:4317" desc:"OpenTelemetry Collector Endpoint"`
 	MetricsExportInterval time.Duration           `default:"10s" desc:"interval between mertics exports" split_words:"true"`
+
+	LivenessCheckEnabled  bool          `default:"true" desc:"Dataplane liveness check enabled/disabled"`
+	LivenessCheckInterval time.Duration `default:"1200ms" desc:"Dataplane liveness check interval"`
+	LivenessCheckTimeout  time.Duration `default:"1s" desc:"Dataplane liveness check timeout"`
 }
 
 func main() {
@@ -201,11 +206,18 @@ func main() {
 		grpcfd.WithChainUnaryInterceptor(),
 	)
 
+	var healOptions = []heal.Option{heal.WithLivenessCheckInterval(config.LivenessCheckInterval),
+		heal.WithLivenessCheckTimeout(config.LivenessCheckTimeout)}
+
+	if config.LivenessCheckEnabled {
+		healOptions = append(healOptions, heal.WithLivenessCheck(vppheal.VPPLivenessCheck(vppConn)))
+	}
+
 	nsmClient := client.NewClient(
 		ctx,
 		client.WithClientURL(&config.ConnectTo),
 		client.WithName(config.Name),
-		client.WithHealClient(heal.NewClient(ctx)),
+		client.WithHealClient(heal.NewClient(ctx, healOptions...)),
 		client.WithAdditionalFunctionality(
 			clientinfo.NewClient(),
 			upstreamrefresh.NewClient(ctx),
