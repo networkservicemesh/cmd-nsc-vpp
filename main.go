@@ -193,15 +193,9 @@ func main() {
 	dialOptions := append(tracing.WithTracingDial(),
 		grpc.WithDefaultCallOptions(
 			grpc.WaitForReady(true),
-			grpc.PerRPCCredentials(token.NewPerRPCCredentials(spiffejwt.TokenGeneratorFunc(source, config.MaxTokenLifetime))),
-		),
+			grpc.PerRPCCredentials(token.NewPerRPCCredentials(spiffejwt.TokenGeneratorFunc(source, config.MaxTokenLifetime)))),
 		grpc.WithTransportCredentials(
-			grpcfd.TransportCredentials(
-				credentials.NewTLS(
-					tlsClientConfig,
-				),
-			),
-		),
+			grpcfd.TransportCredentials(credentials.NewTLS(tlsClientConfig))),
 		grpcfd.WithChainStreamInterceptor(),
 		grpcfd.WithChainUnaryInterceptor(),
 	)
@@ -226,8 +220,7 @@ func main() {
 			memif.NewClient(ctx, vppConn),
 			sendfd.NewClient(),
 			recvfd.NewClient(),
-			excludedprefixes.NewClient(excludedprefixes.WithAwarenessGroups(config.AwarenessGroups)),
-		),
+			excludedprefixes.NewClient(excludedprefixes.WithAwarenessGroups(config.AwarenessGroups))),
 		client.WithDialTimeout(config.DialTimeout),
 		client.WithDialOptions(dialOptions...),
 	)
