@@ -18,7 +18,6 @@ import (
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/clientinfo"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/excludedprefixes"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/heal"
-	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/retry"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/upstreamrefresh"

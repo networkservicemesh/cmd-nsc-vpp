@@ -52,7 +52,6 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/clientinfo"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/excludedprefixes"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/heal"
-	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/recvfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/retry"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/upstreamrefresh"
@@ -219,7 +218,6 @@ func main() {
 			connectioncontext.NewClient(vppConn),
 			memif.NewClient(ctx, vppConn),
 			sendfd.NewClient(),
-			recvfd.NewClient(),
 			excludedprefixes.NewClient(excludedprefixes.WithAwarenessGroups(config.AwarenessGroups))),
 		client.WithDialTimeout(config.DialTimeout),
 		client.WithDialOptions(dialOptions...),
