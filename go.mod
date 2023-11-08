@@ -38,7 +38,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/lunixbochs/struc v0.0.0-20200521075829-a4cb8d33dbbe // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
-	github.com/networkservicemesh/govpp v0.0.0-20230922102554-a46e6ced9b14 // indirect
+	github.com/networkservicemesh/govpp v0.0.0-20231108193829-2484aa7cd5d9 // indirect
 	github.com/networkservicemesh/sdk-kernel v0.0.0-20231108095606-df65a4704cea // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.16.0 // indirect
