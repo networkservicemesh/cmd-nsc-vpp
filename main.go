@@ -52,9 +52,11 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/clientinfo"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/excludedprefixes"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/heal"
+	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/retry"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/upstreamrefresh"
+	"github.com/networkservicemesh/sdk/pkg/networkservice/core/chain"
 	"github.com/networkservicemesh/sdk/pkg/tools/awarenessgroups"
 	"github.com/networkservicemesh/sdk/pkg/tools/grpcutils"
 	"github.com/networkservicemesh/sdk/pkg/tools/log"
@@ -216,7 +218,9 @@ func main() {
 			upstreamrefresh.NewClient(ctx),
 			up.NewClient(ctx, vppConn),
 			connectioncontext.NewClient(vppConn),
-			memif.NewClient(ctx, vppConn),
+			mechanisms.NewClientWithMetrics(map[string]networkservice.NetworkServiceClient{
+				memif.MECHANISM: chain.NewNetworkServiceClient(memif.NewClient(ctx, vppConn)),
+			}),
 			sendfd.NewClient(),
 			excludedprefixes.NewClient(excludedprefixes.WithAwarenessGroups(config.AwarenessGroups))),
 		client.WithDialTimeout(config.DialTimeout),
