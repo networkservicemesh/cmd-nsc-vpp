@@ -29,6 +29,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"testing"
 	"time"
 
 	nested "github.com/antonfisher/nested-logrus-formatter"
@@ -55,6 +56,7 @@ import (
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/retry"
 	"github.com/networkservicemesh/sdk/pkg/networkservice/common/upstreamrefresh"
+	"github.com/networkservicemesh/sdk/pkg/networkservice/utils/checks/checkclose"
 	"github.com/networkservicemesh/sdk/pkg/tools/awarenessgroups"
 	"github.com/networkservicemesh/sdk/pkg/tools/grpcutils"
 	"github.com/networkservicemesh/sdk/pkg/tools/log"
@@ -80,8 +82,8 @@ type Config struct {
 	MetricsExportInterval time.Duration           `default:"10s" desc:"interval between mertics exports" split_words:"true"`
 
 	LivenessCheckEnabled  bool          `default:"true" desc:"Dataplane liveness check enabled/disabled"`
-	LivenessCheckInterval time.Duration `default:"1200ms" desc:"Dataplane liveness check interval"`
-	LivenessCheckTimeout  time.Duration `default:"1s" desc:"Dataplane liveness check timeout"`
+	LivenessCheckInterval time.Duration `default:"700ms" desc:"Dataplane liveness check interval"`
+	LivenessCheckTimeout  time.Duration `default:"500ms" desc:"Dataplane liveness check timeout"`
 }
 
 func main() {
@@ -215,6 +217,9 @@ func main() {
 			clientinfo.NewClient(),
 			upstreamrefresh.NewClient(ctx),
 			up.NewClient(ctx, vppConn),
+			checkclose.NewClient(nil, func(t *testing.T, c *networkservice.Connection) {
+				time.Sleep(config.LivenessCheckTimeout)
+			}),
 			connectioncontext.NewClient(vppConn),
 			memif.NewClient(ctx, vppConn),
 			sendfd.NewClient(),
