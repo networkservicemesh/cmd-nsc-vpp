@@ -21,6 +21,7 @@ import (
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/mechanisms/sendfd"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/retry"
 	_ "github.com/networkservicemesh/sdk/pkg/networkservice/common/upstreamrefresh"
+	_ "github.com/networkservicemesh/sdk/pkg/networkservice/utils/checks/checkclose"
 	_ "github.com/networkservicemesh/sdk/pkg/tools/awarenessgroups"
 	_ "github.com/networkservicemesh/sdk/pkg/tools/grpcutils"
 	_ "github.com/networkservicemesh/sdk/pkg/tools/log"
@@ -40,5 +41,6 @@ import (
 	_ "os"
 	_ "os/signal"
 	_ "syscall"
+	_ "testing"
 	_ "time"
 )
