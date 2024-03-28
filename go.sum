@@ -101,8 +101,8 @@ github.com/mdlayher/netlink v1.1.0/go.mod h1:H4WCitaheIsdF9yOYu8CFmCgQthAPIWZmcK
 github.com/mikioh/ipaddr v0.0.0-20190404000644-d465c8ab6721/go.mod h1:Ickgr2WtCLZ2MDGd4Gr0geeCH5HybhRJbonOgQpvSxc=
 github.com/networkservicemesh/api v1.12.1-rc.1.0.20240301085602-d5e1eb84eeb4 h1:cyRclVDJog+cob4lrbdIe/Rwp0H/kIB6TzvfBS6SZNY=
 github.com/networkservicemesh/api v1.12.1-rc.1.0.20240301085602-d5e1eb84eeb4/go.mod h1:E2yBac48+mMkMh6ODnsNyah4EE6rI08SMR9n+86Emxs=
-github.com/networkservicemesh/govpp v0.0.0-20240312165607-3c0a753ca3bf h1:K5lgSmjP5pjszXRP224r3Z1/Z791HY+fvZM7u4zAaSw=
-github.com/networkservicemesh/govpp v0.0.0-20240312165607-3c0a753ca3bf/go.mod h1:CwikXQ3p/y3j6+HbQQWXKv0f4LPyUd2vKTiViG93qWA=
+github.com/networkservicemesh/govpp v0.0.0-20240328101142-8a444680fbba h1:7B6X6N7rwJNpnfsUlBavxuZdYqTx8nAKwxVS/AkuX1o=
+github.com/networkservicemesh/govpp v0.0.0-20240328101142-8a444680fbba/go.mod h1:CwikXQ3p/y3j6+HbQQWXKv0f4LPyUd2vKTiViG93qWA=
 github.com/networkservicemesh/sdk v0.5.1-0.20240325095750-d803d102cac5 h1:+ynDZ1j0iO3TV5WnKw7IXZbHireeLHjpHVjsLLmNOGY=
 github.com/networkservicemesh/sdk v0.5.1-0.20240325095750-d803d102cac5/go.mod h1:sX3yHOgF+zgPv22w77yrldRkR3m7plBNPaTj9nuhP+s=
 github.com/networkservicemesh/sdk-kernel v0.0.0-20240325112637-39595ce194c5 h1:fdwGjtIzQA0M9TEaZY67PuZY7lkqPA5y6rJG0YoJ+J8=
