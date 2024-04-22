@@ -16,6 +16,24 @@ You can build the docker container by running:
 docker build .
 ```
 
+# Usage
+
+## Environment config
+
+* `NSM_NAME`                    - Name of Endpoint (default: "cmd-nsc-vpp")
+* `NSM_DIAL_TIMEOUT`            - timeout to dial NSMgr (default: "5s")
+* `NSM_REQUEST_TIMEOUT`         - timeout to request NSE (default: "15s")
+* `NSM_CONNECT_TO`              - url to connect to (default: "unix:///var/lib/networkservicemesh/nsm.io.sock")
+* `NSM_MAX_TOKEN_LIFETIME`      - maximum lifetime of tokens (default: "10m")
+* `NSM_NETWORK_SERVICES`        - A list of Network Service Requests
+* `NSM_AWARENESS_GROUPS`        - Awareness groups for mutually aware NSEs
+* `NSM_LOG_LEVEL`               - Log level (default: "INFO")
+* `NSM_OPEN_TELEMETRY_ENDPOINT` - OpenTelemetry Collector Endpoint (default: "otel-collector.observability.svc.cluster.local:4317")
+* `NSM_METRICS_EXPORT_INTERVAL` - interval between mertics exports (default: "10s")
+* `NSM_LIVENESS_CHECK_ENABLED`  - Dataplane liveness check enabled/disabled (default: "true")
+* `NSM_LIVENESS_CHECK_INTERVAL` - Dataplane liveness check interval (default: "1200ms")
+* `NSM_LIVENESS_CHECK_TIMEOUT`  - Dataplane liveness check timeout (default: "1s")
+
 # Testing
 
 ## Testing Docker container
