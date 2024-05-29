@@ -7,9 +7,9 @@ require (
 	github.com/edwarnicke/debug v1.0.0
 	github.com/edwarnicke/grpcfd v1.1.2
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/networkservicemesh/api v1.13.1-0.20240424210452-d0df98851760
-	github.com/networkservicemesh/sdk v0.5.1-0.20240529105330-c01f9e100851
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20240529105924-345d2cefa1ba
+	github.com/networkservicemesh/api v1.13.1-rc.3
+	github.com/networkservicemesh/sdk v1.13.1-rc.3
+	github.com/networkservicemesh/sdk-vpp v1.13.1-rc.3
 	github.com/networkservicemesh/vpphelper v0.0.0-20240115135903-e2b961f768b6
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spiffe/go-spiffe/v2 v2.1.7
@@ -17,7 +17,6 @@ require (
 )
 
 require (
-	cloud.google.com/go/compute/metadata v0.2.3 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
@@ -41,7 +40,7 @@ require (
 	github.com/lunixbochs/struc v0.0.0-20200707160740-784aaebc1d40 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/networkservicemesh/govpp v0.0.0-20240328101142-8a444680fbba // indirect
-	github.com/networkservicemesh/sdk-kernel v0.0.0-20240529105556-06cfa696acac // indirect
+	github.com/networkservicemesh/sdk-kernel v1.13.1-rc.3 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.17.0 // indirect
 	github.com/prometheus/client_model v0.5.0 // indirect
@@ -50,7 +49,6 @@ require (
 	github.com/vishvananda/netns v0.0.4 // indirect
 	github.com/zeebo/errs v1.3.0 // indirect
 	go.fd.io/govpp v0.10.0-alpha.0.20240110141843-761adec77524 // indirect
-	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.46.0 // indirect
 	go.opentelemetry.io/otel v1.20.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v0.43.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.20.0 // indirect
