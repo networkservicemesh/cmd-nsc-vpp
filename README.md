@@ -33,6 +33,8 @@ docker build .
 * `NSM_LIVENESS_CHECK_ENABLED`  - Dataplane liveness check enabled/disabled (default: "true")
 * `NSM_LIVENESS_CHECK_INTERVAL` - Dataplane liveness check interval (default: "1200ms")
 * `NSM_LIVENESS_CHECK_TIMEOUT`  - Dataplane liveness check timeout (default: "1s")
+* `NSM_PPROF_ENABLED`           - is pprof enabled (default: "false")
+* `NSM_PPROF_LISTEN_ON`         - pprof URL to ListenAndServe (default: "localhost:6060")
 
 # Testing
 
