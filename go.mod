@@ -7,9 +7,9 @@ require (
 	github.com/edwarnicke/debug v1.0.0
 	github.com/edwarnicke/grpcfd v1.1.4
 	github.com/kelseyhightower/envconfig v1.4.0
-	github.com/networkservicemesh/api v1.13.4-0.20240815101554-fdbfcd84fd0e
-	github.com/networkservicemesh/sdk v0.5.1-0.20241017235226-a17a4feafcc5
-	github.com/networkservicemesh/sdk-vpp v0.0.0-20241028172155-979dc1475440
+	github.com/networkservicemesh/api v1.14.1
+	github.com/networkservicemesh/sdk v1.14.1
+	github.com/networkservicemesh/sdk-vpp v1.14.1
 	github.com/networkservicemesh/vpphelper v0.0.0-20240115135903-e2b961f768b6
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spiffe/go-spiffe/v2 v2.1.7
@@ -41,7 +41,7 @@ require (
 	github.com/lunixbochs/struc v0.0.0-20200707160740-784aaebc1d40 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.4 // indirect
 	github.com/networkservicemesh/govpp v0.0.0-20240328101142-8a444680fbba // indirect
-	github.com/networkservicemesh/sdk-kernel v0.0.0-20241028171658-6b5aa1e4372d // indirect
+	github.com/networkservicemesh/sdk-kernel v1.14.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/prometheus/client_golang v1.17.0 // indirect
 	github.com/prometheus/client_model v0.5.0 // indirect
